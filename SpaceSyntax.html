@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Space Syntax</title>
+        <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+        <script type="text/javascript" src="../Common/initShaders.js"></script>
+	    <script type="text/javascript" src="../Common/MV.js"></script> <!-- From Angel and Shreiner, Interactive Computer Graphics -->
+        <script type="text/javascript" src="../Common/kMath.js"></script>
+        <script type="text/javascript" src="SpaceSyntax.js"></script>
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 vPosition;
+            attribute vec4 vColor;
+
+            uniform mat4 perspectiveMatrix;
+		    uniform mat4 modelViewMatrix;
+
+            varying vec4 fColor;
+            
+            void main() 
+            {
+                gl_Position = perspectiveMatrix * modelViewMatrix * vPosition;
+                fColor = vColor;
+                gl_PointSize = 4.0;
+            }
+        </script>
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+    
+            varying vec4 fColor;
+            
+            void main() 
+            {
+                gl_FragColor = fColor;
+            }
+        </script>
+        <style>
+            .frame{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 97.5vh;
+            }
+    
+            canvas {
+                width: 95vmin;
+                height: 95vmin;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="frame">
+                <canvas id="gl-canvas" width="650" height ="650"></canvas>
+        </div>
+    </body>
+</html>
